@@ -27,6 +27,17 @@ public class GameMap {
         return pxPerCell;
     }
 
+    public boolean isCharacterTouchingWall(Rectangle characterBounds) {
+
+        // Iterate through the wall rectangles and check for intersection
+        for (Rectangle wall : wallRectangles) {
+            if (characterBounds.intersects(wall)) {
+                return true; // Character is touching a wall
+            }
+        }
+        return false; // Character is not touching any wall
+    }
+
     public GameMap(JFrame frame, int rows, int cols, int pxPerCell){
         this.frame = frame;
         this.cols = cols;

@@ -54,8 +54,10 @@ public abstract class Caracter {
     }
 
     private void moveLabel(int x, int y ){
-            Point p = this.label.getLocation();
-            this.label.setLocation(p.x + x * 2,p.y + y * 2);
+        Rectangle actulRectangle = this.label.getBounds();
+        actulRectangle.setLocation(actulRectangle.x + x * 2,actulRectangle.y + y * 2);
+        if(!gameMap.isCharacterTouchingWall(actulRectangle))
+            this.label.setBounds(actulRectangle);
     }
 
     
