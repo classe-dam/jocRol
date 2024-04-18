@@ -25,7 +25,7 @@ public abstract class Caracter {
     private void initLabel(){
         // Create a JLabel with the GIF image
         label = new JLabel();
-        Point startingPosition = gameMap.getStartingPosition();
+        Rectangle startingPosition = gameMap.getStartingPosition();
         label.setBounds(startingPosition.x,startingPosition.y,gameMap.getPxPerCell(),gameMap.getPxPerCell());
         Game.frame.getContentPane().add(label);
         this.setImage("up");

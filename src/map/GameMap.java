@@ -1,5 +1,7 @@
 package map;
 
+import org.w3c.dom.css.Rect;
+
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
@@ -10,14 +12,14 @@ public class GameMap {
     int rows;
     int cols;
     int pxPerCell;
-    Point startingPosition;
+    Rectangle startingPosition;
 
-    HashSet<Point> bannedPoints;
-    HashSet<Point> wallPoints;
-    HashSet<Point> exitMapPoints;
+    HashSet<Rectangle> bannedRectangles;
+    HashSet<Rectangle> wallRectangles;
+    HashSet<Rectangle> exitMapRectangles;
     JFrame frame;
 
-    public Point getStartingPosition() {
+    public Rectangle getStartingPosition() {
         return startingPosition;
     }
 
@@ -34,12 +36,13 @@ public class GameMap {
     }
 
     private void initializePoints(){
-        this.wallPoints = new HashSet<>();
-        this.startingPosition = new Point(0,2 * pxPerCell );
-        this.exitMapPoints = new HashSet<>();
-        this.exitMapPoints.add(new Point(this.cols * pxPerCell,(this.rows - 1 )* pxPerCell));
-        this.exitMapPoints.add(new Point(this.cols * pxPerCell,(this.rows - 2 )* pxPerCell));
-        this.bannedPoints = loadBannedPoints();
+
+        this.wallRectangles = new HashSet<>();
+        this.startingPosition = new Rectangle(0,2 * pxPerCell,this.pxPerCell, this.pxPerCell );
+        this.exitMapRectangles = new HashSet<>();
+        this.exitMapRectangles.add(new Rectangle(this.cols * pxPerCell,(this.rows - 1 )* pxPerCell, this.pxPerCell,this.pxPerCell));
+        this.exitMapRectangles.add(new Rectangle(this.cols * pxPerCell,(this.rows - 2 )* pxPerCell, this.pxPerCell,this.pxPerCell));
+        this.bannedRectangles = loadBannedPoints();
     }
 
     public void loadMap(){
@@ -57,24 +60,24 @@ public class GameMap {
 
     private boolean loadWall(int col, int row){
         if(col == 0 || row == 0 || col == cols || row == rows){
-            Point p = new Point(col * this.pxPerCell, row * this.pxPerCell);
-            if(this.bannedPoints.contains(p)){
+            Rectangle p = new Rectangle(col * this.pxPerCell, row * this.pxPerCell, this.pxPerCell, this.pxPerCell);
+            if(this.bannedRectangles.contains(p)){
                 return false;
             }
-            this.wallPoints.add(p);
+            this.wallRectangles.add(p);
             return true;
         }else{
             return false;
         }
     }
 
-    private HashSet<Point> loadBannedPoints(){
-        HashSet<Point> bannedPoints = new HashSet<>();
-        bannedPoints.add(this.startingPosition);
-        bannedPoints.addAll(this.exitMapPoints);
-        bannedPoints.add(new Point(0,3 * pxPerCell));
+    private HashSet<Rectangle> loadBannedPoints(){
+        HashSet<Rectangle> bannedRectangles = new HashSet<>();
+        bannedRectangles.add(this.startingPosition);
+        bannedRectangles.addAll(this.exitMapRectangles);
+        bannedRectangles.add(new Rectangle(0,3 * pxPerCell, this.pxPerCell, this.pxPerCell));
 
-        return bannedPoints;
+        return bannedRectangles;
     }
 
     public static void insertMapCell(int width, int height, int x, int y, String imagePath, JFrame frame) {
@@ -87,6 +90,7 @@ public class GameMap {
 
         // Create the JLabel with the image
         JLabel imageLabel = new JLabel(scaledImageIcon);
+
 
         // Set the position of the JLabel
         imageLabel.setBounds(x, y, width, height);
