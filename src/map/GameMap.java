@@ -15,12 +15,22 @@ public class GameMap {
     HashSet<Point> bannedPoints;
     HashSet<Point> wallPoints;
     HashSet<Point> exitMapPoints;
+    JFrame frame;
+
+    public Point getStartingPosition() {
+        return startingPosition;
+    }
+
+    public int getPxPerCell() {
+        return pxPerCell;
+    }
+
     public GameMap(JFrame frame, int rows, int cols, int pxPerCell){
+        this.frame = frame;
         this.cols = cols;
         this.rows = rows;
         this.pxPerCell = pxPerCell;
         this.initializePoints();
-        loadMap(frame,  pxPerCell);
     }
 
     private void initializePoints(){
@@ -32,7 +42,7 @@ public class GameMap {
         this.bannedPoints = loadBannedPoints();
     }
 
-    private void loadMap(JFrame frame, int pxPerCell){
+    public void loadMap(){
         for(int col = 0; col <= cols; col++){
             for(int row = 0; row <= rows; row ++){
                 if(loadWall(col, row)){
