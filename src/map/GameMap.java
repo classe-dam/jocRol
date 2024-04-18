@@ -10,16 +10,26 @@ public class GameMap {
     int rows;
     int cols;
     int pxPerCell;
+    Point startingPosition;
 
     HashSet<Point> bannedPoints;
     HashSet<Point> wallPoints;
+    HashSet<Point> exitMapPoints;
     public GameMap(JFrame frame, int rows, int cols, int pxPerCell){
-        this.wallPoints = new HashSet<>();
         this.cols = cols;
         this.rows = rows;
         this.pxPerCell = pxPerCell;
-        this.bannedPoints = loadBannedPoints();
+        this.initializePoints();
         loadMap(frame,  pxPerCell);
+    }
+
+    private void initializePoints(){
+        this.wallPoints = new HashSet<>();
+        this.startingPosition = new Point(0,2 * pxPerCell );
+        this.exitMapPoints = new HashSet<>();
+        this.exitMapPoints.add(new Point(this.cols * pxPerCell,(this.rows - 1 )* pxPerCell));
+        this.exitMapPoints.add(new Point(this.cols * pxPerCell,(this.rows - 2 )* pxPerCell));
+        this.bannedPoints = loadBannedPoints();
     }
 
     private void loadMap(JFrame frame, int pxPerCell){
@@ -50,19 +60,11 @@ public class GameMap {
 
     private HashSet<Point> loadBannedPoints(){
         HashSet<Point> bannedPoints = new HashSet<>();
-        bannedPoints.add(new Point(0,2 * pxPerCell ));
+        bannedPoints.add(this.startingPosition);
+        bannedPoints.addAll(this.exitMapPoints);
         bannedPoints.add(new Point(0,3 * pxPerCell));
-        bannedPoints.add(new Point(this.cols * pxPerCell,(this.rows - 1 )* pxPerCell));
-        bannedPoints.add(new Point(this.cols * pxPerCell,(this.rows - 2 )* pxPerCell));
 
         return bannedPoints;
-    }
-
-    private boolean CoordinateIsADoorSpace(int col, int row){
-
-
-
-        return false;
     }
 
     public static void insertMapCell(int width, int height, int x, int y, String imagePath, JFrame frame) {
@@ -81,8 +83,6 @@ public class GameMap {
 
         // Set the z-index of the JLabel
         frame.getContentPane().add(imageLabel);
-
-        System.out.println("inserting at" + x + "----" + y + "-----" + imageLabel.getBounds());
 
     }
 }
