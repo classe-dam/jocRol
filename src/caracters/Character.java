@@ -6,6 +6,11 @@ import map.GameMap;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * this class is a type of abstraction for label with a gif that alows any child class to
+ * interact and update the position of a label with a set of methods, requirements are have gjfs inside
+ * ./src/images/{imagename} with name {imagename}-up.gif, {imagename}-down.gif, {imagename}-left.gif, {imagename}-right.gif
+ */
 public abstract class Character {
     int lifes;
     int movementSpeed;
