@@ -23,8 +23,6 @@ public abstract class Caracter {
     }
 
     private void initLabel(){
-
-
         // Create a JLabel with the GIF image
         label = new JLabel();
         Point startingPosition = gameMap.getStartingPosition();
@@ -41,14 +39,23 @@ public abstract class Caracter {
 
     public void up(){
         this.setImage("up");
+        moveLabel(0,-this.movementSpeed);
     }
     public void down(){
         this.setImage("down");
+        moveLabel(0,this.movementSpeed);
     }
     public void right(){
         this.setImage("right");
+        moveLabel(this.movementSpeed,0);
     }public void left(){
         this.setImage("left");
+        moveLabel(-this.movementSpeed,0);
+    }
+
+    private void moveLabel(int x, int y ){
+            Point p = this.label.getLocation();
+            this.label.setLocation(p.x + x * 2,p.y + y * 2);
     }
 
     
