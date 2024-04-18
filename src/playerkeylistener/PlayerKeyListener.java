@@ -1,24 +1,21 @@
 package playerkeylistener;
-import caracters.Caracter;
+import caracters.Character;
 
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.util.HashMap;
 
 
 public class PlayerKeyListener extends KeyAdapter {
 
-    Caracter chosenCharacter;
+    Character chosenCharacter;
 
-    public PlayerKeyListener(Caracter chosenCharacter) {
+    public PlayerKeyListener(Character chosenCharacter) {
         this.chosenCharacter = chosenCharacter;
     }
 
     @Override
     public void keyPressed(KeyEvent e) {
         char keyChar = e.getKeyChar();
-
         // Handle 'a', 'w', 's', 'd' keys
         switch (keyChar) {
             case 'a':

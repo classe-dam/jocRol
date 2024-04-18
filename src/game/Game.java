@@ -1,9 +1,6 @@
 package game;
 
-import caracters.Caracter;
-import caracters.Priest;
-import caracters.Warrior;
-import caracters.Wizard;
+import caracters.*;
 import map.GameMap;
 import playerkeylistener.PlayerKeyListener;
 
@@ -24,9 +21,10 @@ public class Game {
         frame.setSize((cols + 1) * pxPerCell, (rows + 2) * pxPerCell);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         GameMap gameMap = new GameMap(frame, rows, cols, pxPerCell);
-//        Caracter chosenCharacter = (Caracter) new Warrior(gameMap);
-//                Caracter chosenCharacter = (Caracter) new Wizard(gameMap);
-        Caracter chosenCharacter = (Caracter) new Priest(gameMap);
+        String name = "name";
+//        PlayerCharacter chosenCharacter = (Caracter) new Warrior(gameMap, name);
+//                PlayerCharacter chosenCharacter = (Caracter) new Wizard(gameMap, name);
+        PlayerCharacter chosenCharacter = (PlayerCharacter) new Priest(gameMap,name);
         frame.addKeyListener(new PlayerKeyListener(chosenCharacter));
         frame.setFocusable(true);
         System.out.println(frame.getBounds());

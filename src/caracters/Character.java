@@ -6,15 +6,17 @@ import map.GameMap;
 import javax.swing.*;
 import java.awt.*;
 
-public abstract class Caracter {
+public abstract class Character {
     int lifes;
     int movementSpeed;
 
     JLabel label;
     String imageName;
     GameMap gameMap;
+    Rectangle position;
 
-    public Caracter(int lifes, int movementSpeed, String imageName, GameMap gameMap) {
+
+    public Character(int lifes, int movementSpeed, String imageName, GameMap gameMap) {
         this.gameMap = gameMap;
         this.lifes = lifes;
         this.movementSpeed = movementSpeed;
@@ -58,6 +60,7 @@ public abstract class Caracter {
         actulRectangle.setLocation(actulRectangle.x + x * 2,actulRectangle.y + y * 2);
         if(!gameMap.isCharacterTouchingWall(actulRectangle))
             this.label.setBounds(actulRectangle);
+            this.position = actulRectangle;
     }
 
     

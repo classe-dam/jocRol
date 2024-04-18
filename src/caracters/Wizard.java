@@ -2,9 +2,9 @@ package caracters;
 
 import map.GameMap;
 
-public class Wizard extends Caracter {
+public class Wizard extends  PlayerCharacter {
 
-    public Wizard(GameMap gameMap) {
-        super(3, 7, "wizard", gameMap);
+    public Wizard(GameMap gameMap, String name) {
+        super(3, 7, "wizard", gameMap, name);
     }
 }
