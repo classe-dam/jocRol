@@ -22,6 +22,9 @@ public abstract class Character {
     GameMap gameMap;
     Rectangle position;
 
+    public Rectangle getPosition(){
+        return label.getBounds();
+    }
 
     public Character(int lifes, int movementSpeed, String imageName, GameMap gameMap, Rectangle startingPosition) {
         this.gameMap = gameMap;
