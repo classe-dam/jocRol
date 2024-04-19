@@ -1,23 +1,29 @@
 package map;
 
+import caracters.EnemyBot;
+import caracters.PlayerCharacter;
+import items.Item;
+import items.ItemType;
 import org.w3c.dom.css.Rect;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
+import java.util.*;
+import java.util.List;
 
 public class GameMap {
-    int rows;
-    int cols;
-    int pxPerCell;
-    Rectangle startingPosition;
+    private int rows;
+    private int cols;
+    private int pxPerCell;
+    private Rectangle startingPosition;
 
-    HashSet<Rectangle> bannedRectangles;
-    HashSet<Rectangle> wallRectangles;
-    HashSet<Rectangle> exitMapRectangles;
-    JFrame frame;
+    private HashSet<Rectangle> bannedRectangles;
+    private HashSet<Rectangle> wallRectangles;
+    private HashSet<Rectangle> exitMapRectangles;
+    private JFrame frame;
+
+    private LinkedList<Item> items;
+    private LinkedList<EnemyBot> enemys;
 
 
     public int getRows() {
@@ -118,5 +124,22 @@ public class GameMap {
         // Set the z-index of the JLabel
         frame.getContentPane().add(imageLabel);
 
+    }
+
+    public void insertEnemyBots(PlayerCharacter choosenCharacter){
+        //generate bots
+        for(int i = 0; i <= 5; i++){
+            EnemyBot enemy = new EnemyBot(this, choosenCharacter);
+            this.enemys.add(enemy);
+        }
+    }
+
+    public void insertItems(){
+        //insert items
+        List<ItemType> items = Arrays.asList(ItemType.values());
+        for(ItemType item : items){
+            Item createdItem = new Item(item);
+            this.items.add(createdItem);
+        }
     }
 }

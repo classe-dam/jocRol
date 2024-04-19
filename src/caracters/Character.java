@@ -14,13 +14,13 @@ import java.io.File;
  * ./src/images/{imagename} with name {imagename}-up.gif, {imagename}-down.gif, {imagename}-left.gif, {imagename}-right.gif
  */
 public abstract class Character {
-    int lifes;
-    int movementSpeed;
+    private int lifes;
+    private int movementSpeed;
 
-    JLabel label;
-    String imageName;
-    GameMap gameMap;
-    Rectangle position;
+    private JLabel label;
+    private String imageName;
+    private GameMap gameMap;
+    private Rectangle position;
 
     public Rectangle getPosition(){
         return label.getBounds();
@@ -42,31 +42,29 @@ public abstract class Character {
         this.setImage("up");
     }
 
-
-
-//    private void setImage(String movement){
-//        // Load the GIF image
-//        ImageIcon icon = new ImageIcon("./src/images/" + this.imageName +"/" + this.imageName + "_" + movement + ".gif");
-//        this.label.setIcon(icon);
-//    }
-
-    private void setImage(String movement) {
-        try {
-            // Load the GIF image using ImageIO
-            Image image = ImageIO.read(new File("./src/images/" + this.imageName + "/" + this.imageName + "_" + movement + ".gif"));
-
-            // Scale the image to fit within the label's size
-            Image scaledImage = image.getScaledInstance(label.getWidth(), label.getHeight(), Image.SCALE_SMOOTH);
-
-            // Create an ImageIcon from the scaled image
-            ImageIcon icon = new ImageIcon(scaledImage);
-
-            // Set the icon to the label
-            label.setIcon(icon);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    private void setImage(String movement){
+        // Load the GIF image
+        ImageIcon icon = new ImageIcon("./src/images/" + this.imageName +"/" + this.imageName + "_" + movement + ".gif");
+        this.label.setIcon(icon);
     }
+
+//    private void setImage(String movement) {
+//        try {
+//            // Load the GIF image using ImageIO
+//            Image image = ImageIO.read(new File("./src/images/" + this.imageName + "/" + this.imageName + "_" + movement + ".gif"));
+//
+//            // Scale the image to fit within the label's size
+//            Image scaledImage = image.getScaledInstance(label.getWidth(), label.getHeight(), Image.SCALE_SMOOTH);
+//
+//            // Create an ImageIcon from the scaled image
+//            ImageIcon icon = new ImageIcon(scaledImage);
+//
+//            // Set the icon to the label
+//            label.setIcon(icon);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//    }
 
     public boolean up(){
         this.setImage("up");

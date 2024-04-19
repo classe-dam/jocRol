@@ -10,8 +10,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class EnemyBot extends Character {
-    PlayerCharacter pursuedCharacter;
-    int waitMovementTime;
+    private PlayerCharacter pursuedCharacter;
+    private int waitMovementTime;
     public EnemyBot(GameMap gameMap, PlayerCharacter pursuedCharacter) {
         super(
                 1,

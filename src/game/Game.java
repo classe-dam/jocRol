@@ -2,10 +2,13 @@ package game;
 
 import caracters.EnemyBot;
 import caracters.*;
+import items.ItemType;
 import map.GameMap;
 import playerkeylistener.PlayerKeyListener;
 
 import javax.swing.*;
+import java.util.Arrays;
+import java.util.List;
 
 public class Game {
     public static JFrame frame;
@@ -41,11 +44,9 @@ public class Game {
                 choosenCharacter = (PlayerCharacter) new Warrior(gameMap, name);
                 break;
         }
-        //generate bots
-        for(int i = 0; i <= 5; i++){
-            new EnemyBot(gameMap, choosenCharacter);
-        }
 
+        gameMap.insertEnemyBots(choosenCharacter);
+        gameMap.insertItems();
 
         //add the player keylistener
         frame.addKeyListener(new PlayerKeyListener(choosenCharacter));
