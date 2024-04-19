@@ -8,11 +8,13 @@ import java.util.ArrayList;
 public class PlayerCharacter extends Character
 {
     String name;
-    String gold;
+    int gold;
     ArrayList<Item> items;
 
     public PlayerCharacter(int lifes, int movementSpeed, String imageName, GameMap gameMap, String name) {
-        super(lifes, movementSpeed, imageName, gameMap);
+        super(lifes, movementSpeed, imageName, gameMap, gameMap.getStartingPosition());
+        this.gold = 0;
+        this.items = new ArrayList<>();
         this.name = name;
     }
 }

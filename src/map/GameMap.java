@@ -19,6 +19,15 @@ public class GameMap {
     HashSet<Rectangle> exitMapRectangles;
     JFrame frame;
 
+
+    public int getRows() {
+        return rows;
+    }
+
+    public int getCols() {
+        return cols;
+    }
+
     public Rectangle getStartingPosition() {
         return startingPosition;
     }
