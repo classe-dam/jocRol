@@ -2,6 +2,6 @@ import game.Game;
 
 public class Main {
     public static void main(String[] args) {
-        new Game("name",0);
+        new Game("name",2);
     }
 }

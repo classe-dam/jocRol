@@ -15,7 +15,7 @@ public class EnemyBot extends Character {
     public EnemyBot(GameMap gameMap, PlayerCharacter pursuedCharacter) {
         super(
                 1,
-                2,
+                1,
                 "skeleton",
                 gameMap,
                 new Rectangle(
