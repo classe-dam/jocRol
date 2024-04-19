@@ -130,7 +130,7 @@ public class GameMap {
         //generate bots
         for(int i = 0; i <= 5; i++){
             EnemyBot enemy = new EnemyBot(this, choosenCharacter);
-            this.enemys.add(enemy);
+//            this.enemys.add(enemy);
         }
     }
 
@@ -139,7 +139,7 @@ public class GameMap {
         List<ItemType> items = Arrays.asList(ItemType.values());
         for(ItemType item : items){
             Item createdItem = new Item(item);
-            this.items.add(createdItem);
+//            this.items.add(createdItem);
         }
     }
 }
