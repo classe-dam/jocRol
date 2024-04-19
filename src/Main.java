@@ -3,15 +3,17 @@ import utils.Utils;
 
 public class Main {
     public static void main(String[] args) {
+
         String name = Utils.getName();
         int choosenCharacterType = Utils.chooseCharacterType();
-        System.out.println("chooose caracter type" + choosenCharacterType);
-        if (name != null && !name.isEmpty()) {
-            // Start the game with the provided name
-            System.out.println("name" + name);
+
+        if (name != null && !name.isEmpty() && choosenCharacterType != -1) {
+            // Start the game with the provided name and character type
+            System.out.println("name: " + name);
             new Game(name, choosenCharacterType);
         } else {
-            System.out.println("No name entered. Exiting...");
+            System.out.println("No name entered or character type not chosen. Exiting...");
         }
+
     }
 }
