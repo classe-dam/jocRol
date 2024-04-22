@@ -18,18 +18,26 @@ public abstract class Character {
     private int movementSpeed;
 
     private JLabel label;
+    private int sizePx;
     private String imageName;
     private GameMap gameMap;
+    private Game game;
     private Rectangle position;
 
     public Rectangle getPosition(){
         return label.getBounds();
     }
 
-    public Character(int lifes, int movementSpeed, String imageName, GameMap gameMap, Rectangle startingPosition) {
+    public GameMap getGameMap() {
+        return gameMap;
+    }
+
+    public Character(int lifes, int movementSpeed, String imageName, GameMap gameMap, Rectangle startingPosition, int sizePx, Game game) {
+        this.game = game;
         this.gameMap = gameMap;
         this.lifes = lifes;
         this.movementSpeed = movementSpeed;
+        this.sizePx = sizePx;
         this.imageName = imageName;
         this.initLabel(startingPosition);
     }
@@ -37,7 +45,7 @@ public abstract class Character {
     private void initLabel(Rectangle startingPosition){
         // Create a JLabel with the GIF image
         label = new JLabel();
-        label.setBounds(startingPosition.x,startingPosition.y,64,64);
+        label.setBounds(startingPosition.x,startingPosition.y,sizePx,sizePx);
         Game.frame.getContentPane().add(label);
         this.setImage("up");
     }
@@ -101,5 +109,13 @@ public abstract class Character {
 
     public int getLifes() {
         return lifes;
+    }
+
+    public void removeLife(){
+        this.lifes -= 1;
+        this.gameMap.getTopBar().setLifes(String.valueOf(this.lifes));
+        if(this.lifes == 0){
+            game.endGame();
+        };
     }
 }

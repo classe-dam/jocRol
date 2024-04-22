@@ -23,7 +23,9 @@ public class EnemyBot extends Character {
                         ((gameMap.getRows() -  generateYPosition(5,gameMap.getRows() - 1)) * gameMap.getPxPerCell() ),
                         64,
                         64
-                )
+                ),
+                64,
+                null
         );
         this.pursuedCharacter = pursuedCharacter;
         this.waitMovementTime = 50;
@@ -45,6 +47,14 @@ public class EnemyBot extends Character {
         });
 
         timer.start();
+    }
+
+    private boolean intersectsChasingCharacter(){
+        if(this.pursuedCharacter.getPosition().intersects(this.getPosition())){
+            return true;
+        }else{
+            return false;
+        }
     }
 
     private void move(){
@@ -76,6 +86,10 @@ public class EnemyBot extends Character {
             }else{
                 super.up();
             }
+        }
+
+        if(intersectsChasingCharacter()){
+            this.pursuedCharacter.handleEnemyColision();
         }
     }
 }

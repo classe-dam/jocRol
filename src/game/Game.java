@@ -14,7 +14,7 @@ public class Game {
     public static JFrame frame;
     public Game(String name, int characterType){
         int rows = 25;
-        int cols = 25;
+        int cols = 35;
         int pxPerCell = 32;
         PlayerCharacter choosenCharacter;
 
@@ -32,16 +32,16 @@ public class Game {
         //initialize the chosen character
         switch (characterType){
             case 0:
-                choosenCharacter = (PlayerCharacter) new Warrior(gameMap, name);
+                choosenCharacter = (PlayerCharacter) new Warrior(gameMap, name, this);
                 break;
             case 1:
-                choosenCharacter = (PlayerCharacter) new Wizard(gameMap, name);
+                choosenCharacter = (PlayerCharacter) new Wizard(gameMap, name, this);
                 break;
             case 2:
-                 choosenCharacter = (PlayerCharacter) new Priest(gameMap,name);
+                 choosenCharacter = (PlayerCharacter) new Priest(gameMap,name, this);
                  break;
             default:
-                choosenCharacter = (PlayerCharacter) new Warrior(gameMap, name);
+                choosenCharacter = (PlayerCharacter) new Warrior(gameMap, name, this);
                 break;
         }
 
@@ -57,5 +57,11 @@ public class Game {
         gameMap.loadMap();
         frame.setVisible(true);
         
+    }
+
+    public void endGame(){
+        System.out.println(" end game ");
+        frame.dispose();
+        JOptionPane.showMessageDialog(null, "Game Over", "Game Over", JOptionPane.INFORMATION_MESSAGE);
     }
 }

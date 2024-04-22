@@ -23,7 +23,6 @@ public class GameMap {
     private JFrame frame;
 
     private LinkedList<Item> items;
-    private LinkedList<EnemyBot> enemys;
     private TopBar topBar;
 
 
@@ -59,6 +58,7 @@ public class GameMap {
         this.cols = cols;
         this.rows = rows;
         this.pxPerCell = pxPerCell;
+        this.items = new LinkedList<>();
         this.initializePoints();
     }
 
@@ -138,7 +138,6 @@ public class GameMap {
         //generate bots
         for(int i = 0; i <= 5; i++){
             EnemyBot enemy = new EnemyBot(this, choosenCharacter);
-//            this.enemys.add(enemy);
         }
     }
 
@@ -147,9 +146,8 @@ public class GameMap {
         List<ItemType> items = Arrays.asList(ItemType.values());
         for(ItemType item : items){
             Item createdItem = new Item(item);
-//            this.items.add(createdItem);
+            this.items.add(createdItem);
         }
     }
-
 
 }
