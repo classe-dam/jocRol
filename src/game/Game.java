@@ -12,10 +12,12 @@ import java.util.List;
 
 public class Game {
     public static JFrame frame;
+    public static boolean gameFinished;
     public Game(String name, int characterType){
         int rows = 25;
         int cols = 35;
         int pxPerCell = 32;
+        gameFinished = false;
         PlayerCharacter choosenCharacter;
 
         //create the framedsd
@@ -59,8 +61,20 @@ public class Game {
     }
 
     public void endGame(){
-        System.out.println(" end game ");
+        if(gameFinished){
+            return;
+        }
         frame.dispose();
+        gameFinished = true;
         JOptionPane.showMessageDialog(null, "Game Over", "Game Over", JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    public void winGame(){
+        if(gameFinished){
+            return;
+        }
+        frame.dispose();
+        gameFinished = true;
+        JOptionPane.showMessageDialog(null, "You have won the game", "Game won", JOptionPane.INFORMATION_MESSAGE);
     }
 }

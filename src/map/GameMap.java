@@ -4,7 +4,6 @@ import caracters.EnemyBot;
 import caracters.PlayerCharacter;
 import items.Item;
 import items.ItemType;
-import org.w3c.dom.css.Rect;
 
 import javax.swing.*;
 import java.awt.*;
@@ -42,7 +41,7 @@ public class GameMap {
         return pxPerCell;
     }
 
-    public boolean isCharacterTouchingWall(Rectangle characterBounds) {
+    public boolean positionIsTouchingWall(Rectangle characterBounds) {
 
         // Iterate through the wall rectangles and check for intersection
         for (Rectangle wall : wallRectangles) {
@@ -50,7 +49,17 @@ public class GameMap {
                 return true; // Character is touching a wall
             }
         }
-        return false; // Character is not touching any wall
+        return false;
+    }
+
+    public boolean positionIsAtExist(Rectangle characterBounds){
+        // Iterate through the wall rectangles and check for intersection
+        for (Rectangle cell : exitMapRectangles) {
+            if (characterBounds.intersects(cell)) {
+                return true; // Character is touching a wall
+            }
+        }
+        return false;
     }
 
     public GameMap(JFrame frame, int rows, int cols, int pxPerCell){
@@ -165,5 +174,7 @@ public class GameMap {
         }
         return null;
     }
+
+
 
 }

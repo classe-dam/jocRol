@@ -27,6 +27,10 @@ public class PlayerCharacter extends Character
         return name;
     }
 
+    public void increaseGold(){
+        this.gold += 10;
+        this.getGameMap().getTopBar().setGold(String.valueOf(this.gold));
+    }
     public int getGold() {
         return gold;
     }
@@ -39,24 +43,28 @@ public class PlayerCharacter extends Character
     public void up() {
         super.up();
         checkPositionForObstaclesOrEnemies();
+        checkGameWon();
     }
 
     @Override
     public void down() {
         super.down();
         checkPositionForObstaclesOrEnemies();
+        checkGameWon();
     }
 
     @Override
     public void right() {
         super.right();
         checkPositionForObstaclesOrEnemies();
+        checkGameWon();
     }
 
     @Override
     public void left() {
         super.left();
         checkPositionForObstaclesOrEnemies();
+        checkGameWon();
     }
 
     public void handleEnemyColision(){
@@ -74,7 +82,32 @@ public class PlayerCharacter extends Character
         Item intersectedItem = this.getGameMap().positionColliseWithItem(this.getPosition());
         //only object
         if(intersectedItem != null){
+            switch (intersectedItem.getItem()){
+                case SWORD:
+
+                    break;
+                case GOLD:
+                    this.increaseGold();
+                    intersectedItem.changeToRandomPosition();
+                    break;
+                case MITRE:
+
+                    break;
+                case POTION:
+
+                    break;
+            }
             System.out.println(intersectedItem.toString());
+        }
+
+
+    }
+    private void checkGameWon(){
+        if(getGameMap().positionIsAtExist(this.getPosition()) && this.gold >= 50){
+            this.getGame().winGame();
+            System.out.println("position at exit" + this.gold);
+        }else{
+            System.out.println("position not at exit" + this.gold);
         }
     }
 }

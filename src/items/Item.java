@@ -22,11 +22,8 @@ public class Item {
 
     private void initLabel(){
         this.label = new JLabel();
-        Random random = new Random();
-        int xposition =  random.nextInt((gameMap.getCols() * gameMap.getPxPerCell() - 100) - 100 + 1) + 100;
-        int yposition =  random.nextInt((gameMap.getRows() * gameMap.getPxPerCell() - 100) - 100 + 1) + 100;
         this.setImage(this.item.getName(),this.label);
-        label.setBounds(xposition,yposition,32,32);
+        this.changeToRandomPosition();
         gameMap.getFrame().getContentPane().add(label);
         System.out.println("item inserted at bounds" + label.getBounds());
     }
@@ -46,6 +43,17 @@ public class Item {
 
     public Rectangle getPosition(){
         return this.label.getBounds();
+    }
+
+    public ItemType getItem() {
+        return item;
+    }
+
+    public void changeToRandomPosition(){
+        Random random = new Random();
+        int xposition =  random.nextInt((gameMap.getCols() * gameMap.getPxPerCell() - 100) - 100 + 1) + 100;
+        int yposition =  random.nextInt((gameMap.getRows() * gameMap.getPxPerCell() - 100) - 100 + 1) + 100;
+        label.setBounds(xposition,yposition,32,32);
     }
 
     @Override

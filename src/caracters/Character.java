@@ -3,10 +3,8 @@ package caracters;
 import game.Game;
 import map.GameMap;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.io.File;
 
 /**
  * this class is a type of abstraction for label with a gif that alows any child class to
@@ -48,6 +46,11 @@ public abstract class Character {
         label.setBounds(startingPosition.x,startingPosition.y,sizePx,sizePx);
         Game.frame.getContentPane().add(label);
         this.setImage("up");
+    }
+
+
+    public Game getGame() {
+        return game;
     }
 
     private void setImage(String movement){
@@ -100,7 +103,7 @@ public abstract class Character {
     private void moveLabel(int x, int y ){
         Rectangle actulRectangle = this.label.getBounds();
         actulRectangle.setLocation(actulRectangle.x + x * 2,actulRectangle.y + y * 2);
-        if(!gameMap.isCharacterTouchingWall(actulRectangle)){
+        if(!gameMap.positionIsTouchingWall(actulRectangle)){
             this.label.setBounds(actulRectangle);
             this.position = actulRectangle;
         }else{
