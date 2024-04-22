@@ -23,6 +23,12 @@ public class PlayerCharacter extends Character
         this.name = name;
     }
 
+    public void addItem(Item item){
+        items.add(item);
+        //render item at the topbar
+
+    }
+
     public String getName() {
         return name;
     }
@@ -78,28 +84,22 @@ public class PlayerCharacter extends Character
             lastTimeCollidedEnemy = currentTime;
         }
 
-        super.setPosition(getGameMap().getStartingPosition()a);
+        super.setPosition(getGameMap().getStartingPosition());
     }
     private void checkPositionForObstaclesOrEnemies(){
         Item intersectedItem = this.getGameMap().positionColliseWithItem(this.getPosition());
         //only object
         if(intersectedItem != null){
             switch (intersectedItem.getItem()){
-                case SWORD:
-
+                case SWORD, MITRE, POTION:
+                    this.addItem(intersectedItem);
+                    intersectedItem.hide();
                     break;
                 case GOLD:
                     this.increaseGold();
                     intersectedItem.changeToRandomPosition();
                     break;
-                case MITRE:
-
-                    break;
-                case POTION:
-
-                    break;
             }
-            System.out.println(intersectedItem.toString());
         }
 
 

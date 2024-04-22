@@ -56,6 +56,10 @@ public class Item {
         label.setBounds(xposition,yposition,32,32);
     }
 
+    public void hide(){
+        this.label.setVisible(false);
+    }
+
     @Override
     public String toString() {
         return "Item{" +

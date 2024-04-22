@@ -92,4 +92,8 @@ public class EnemyBot extends Character {
             this.pursuedCharacter.handleEnemyColision();
         }
     }
+
+    public void hide(){
+        this.getLabel().setVisible(false);
+    }
 }

@@ -125,4 +125,8 @@ public abstract class Character {
             game.endGame();
         };
     }
+
+    public JLabel getLabel() {
+        return label;
+    }
 }
