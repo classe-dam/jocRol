@@ -47,6 +47,7 @@ public class Game {
 
         gameMap.insertEnemyBots(choosenCharacter);
         gameMap.insertItems();
+        gameMap.insertTopBar(choosenCharacter);
 
         //add the player keylistener
         frame.addKeyListener(new PlayerKeyListener(choosenCharacter));

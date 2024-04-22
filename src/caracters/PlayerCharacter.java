@@ -19,4 +19,16 @@ public class PlayerCharacter extends Character
         this.items = new ArrayList<>();
         this.name = name;
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getGold() {
+        return gold;
+    }
+
+    public ArrayList<Item> getItems() {
+        return items;
+    }
 }

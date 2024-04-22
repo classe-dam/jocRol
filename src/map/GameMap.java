@@ -24,6 +24,7 @@ public class GameMap {
 
     private LinkedList<Item> items;
     private LinkedList<EnemyBot> enemys;
+    private TopBar topBar;
 
 
     public int getRows() {
@@ -61,8 +62,11 @@ public class GameMap {
         this.initializePoints();
     }
 
-    private void initializePoints(){
+    public TopBar getTopBar() {
+        return topBar;
+    }
 
+    private void initializePoints(){
         this.wallRectangles = new HashSet<>();
         this.startingPosition = new Rectangle(0,2 * pxPerCell,this.pxPerCell, this.pxPerCell );
         this.exitMapRectangles = new HashSet<>();
@@ -126,6 +130,10 @@ public class GameMap {
 
     }
 
+    public void insertTopBar(PlayerCharacter player){
+        this.topBar = new TopBar(this.frame, player.getLifes(), player.getGold());
+    }
+
     public void insertEnemyBots(PlayerCharacter choosenCharacter){
         //generate bots
         for(int i = 0; i <= 5; i++){
@@ -142,4 +150,6 @@ public class GameMap {
 //            this.items.add(createdItem);
         }
     }
+
+
 }

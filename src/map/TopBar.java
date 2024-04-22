@@ -1,0 +1,66 @@
+package map;
+
+import javax.swing.*;
+import java.awt.*;
+
+public class TopBar {
+    JLabel lifes;
+    JLabel gold;
+    JLabel items;
+    TopBar(JFrame frame, int lifes, int gold){
+        JPanel panel = new JPanel();
+        panel.setBackground(Color.GRAY);
+        panel.setSize(new Dimension(300,30));
+
+        //lifes panel
+        this.lifes = new JLabel();
+        this.lifes.setText(String.valueOf(lifes));
+        this.lifes.setSize(10,30);
+        JLabel imgLifesLabel = new JLabel();
+        this.setImage("heart", imgLifesLabel);
+        panel.add(this.lifes);
+        panel.add(imgLifesLabel);
+
+//        gold panel
+        this.gold = new JLabel();
+        this.gold.setText(String.valueOf(gold));
+        this.gold.setSize(10,30);
+        JLabel imgGoldLabel = new JLabel();
+        imgGoldLabel.setSize(32,32);
+        this.setImage("dollar",imgGoldLabel);
+        panel.add(this.gold);
+        panel.add(imgGoldLabel);
+
+        frame.getContentPane().add(BorderLayout.NORTH,panel);
+
+        // Get the components in the panel
+        Component[] components = panel.getComponents();
+        for (Component component : components) {
+            if (component instanceof JLabel) {
+                JLabel label = (JLabel) component;
+                System.out.println("Label Text: " + label.getText());
+            }
+        }
+    }
+
+    private void setImage(String imageName, JLabel label){
+        // Load the image
+        String imagePath = "./src/images/dungeon/" + imageName + ".png";
+        ImageIcon imageIcon = new ImageIcon(imagePath);
+
+        // Resize the image if necessary
+        Image image = imageIcon.getImage().getScaledInstance(32 /2, 32 /2, Image.SCALE_DEFAULT);
+        ImageIcon scaledImageIcon = new ImageIcon(image);
+
+        label.setSize(32, 32);
+        label.setIcon(scaledImageIcon);
+    }
+
+    public void setLifes(String lifes){
+        this.lifes.setText(lifes);
+    }
+
+    public void setGold(String gold){
+        this.gold.setText(gold);
+    }
+}

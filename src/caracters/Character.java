@@ -100,5 +100,7 @@ public abstract class Character {
         }
     }
 
-    
+    public int getLifes() {
+        return lifes;
+    }
 }
