@@ -77,6 +77,8 @@ public class PlayerCharacter extends Character
             // Update the last collision time
             lastTimeCollidedEnemy = currentTime;
         }
+
+        super.setPosition(getGameMap().getStartingPosition()a);
     }
     private void checkPositionForObstaclesOrEnemies(){
         Item intersectedItem = this.getGameMap().positionColliseWithItem(this.getPosition());
@@ -105,9 +107,6 @@ public class PlayerCharacter extends Character
     private void checkGameWon(){
         if(getGameMap().positionIsAtExist(this.getPosition()) && this.gold >= 50){
             this.getGame().winGame();
-            System.out.println("position at exit" + this.gold);
-        }else{
-            System.out.println("position not at exit" + this.gold);
         }
     }
 }

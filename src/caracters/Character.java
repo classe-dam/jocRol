@@ -26,6 +26,10 @@ public abstract class Character {
         return label.getBounds();
     }
 
+    public void setPosition(Rectangle r){
+        this.label.setBounds(r);
+    }
+
     public GameMap getGameMap() {
         return gameMap;
     }
