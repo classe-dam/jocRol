@@ -25,7 +25,6 @@ public class Game {
         frame.setSize((cols + 1) * pxPerCell, (rows + 2) * pxPerCell);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-
         //init gameMap
         GameMap gameMap = new GameMap(frame, rows, cols, pxPerCell);
 
@@ -53,9 +52,9 @@ public class Game {
         frame.addKeyListener(new PlayerKeyListener(choosenCharacter));
         frame.setFocusable(true);
 
-        //load the map on the frame
         gameMap.loadMap();
-        frame.setVisible(true);
+        //load the map on the frame
+        this.frame.setVisible(true);
         
     }
 

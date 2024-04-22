@@ -64,8 +64,6 @@ public class PlayerCharacter extends Character
 
         // Check if at least half a second has passed since the last collision
         if (currentTime - lastTimeCollidedEnemy >= 500) {
-            // Perform collision actions
-            System.out.println("Player collided with enemy!");
             this.removeLife();
 
             // Update the last collision time
@@ -73,6 +71,10 @@ public class PlayerCharacter extends Character
         }
     }
     private void checkPositionForObstaclesOrEnemies(){
+        Item intersectedItem = this.getGameMap().positionColliseWithItem(this.getPosition());
         //only object
+        if(intersectedItem != null){
+            System.out.println(intersectedItem.toString());
+        }
     }
 }

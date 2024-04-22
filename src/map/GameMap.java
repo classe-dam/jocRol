@@ -66,6 +66,11 @@ public class GameMap {
         return topBar;
     }
 
+
+    public JFrame getFrame() {
+        return frame;
+    }
+
     private void initializePoints(){
         this.wallRectangles = new HashSet<>();
         this.startingPosition = new Rectangle(0,2 * pxPerCell,this.pxPerCell, this.pxPerCell );
@@ -137,7 +142,7 @@ public class GameMap {
     public void insertEnemyBots(PlayerCharacter choosenCharacter){
         //generate bots
         for(int i = 0; i <= 5; i++){
-            EnemyBot enemy = new EnemyBot(this, choosenCharacter);
+            new EnemyBot(this, choosenCharacter);
         }
     }
 
@@ -145,9 +150,20 @@ public class GameMap {
         //insert items
         List<ItemType> items = Arrays.asList(ItemType.values());
         for(ItemType item : items){
-            Item createdItem = new Item(item);
+            Item createdItem = new Item(item, this);
             this.items.add(createdItem);
         }
+    }
+
+    public Item positionColliseWithItem(Rectangle r){
+        Iterator<Item> itemsIterator = this.items.iterator();
+        while(itemsIterator.hasNext()){
+            Item item = itemsIterator.next();
+            if(item.getPosition().intersects(r)){
+                return item;
+            }
+        }
+        return null;
     }
 
 }
