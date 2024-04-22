@@ -66,20 +66,21 @@ public abstract class Character {
 //        }
 //    }
 
-    public boolean up(){
+    public void up(){
         this.setImage("up");
-        return moveLabel(0,-this.movementSpeed);
+        moveLabel(0,-this.movementSpeed);
     }
-    public boolean down(){
+    public void down(){
         this.setImage("down");
-        return moveLabel(0,this.movementSpeed);
+        moveLabel(0,this.movementSpeed);
     }
-    public boolean right(){
+    public void right(){
         this.setImage("right");
-        return moveLabel(this.movementSpeed,0);
-    }public boolean left(){
+        moveLabel(this.movementSpeed,0);
+    }
+    public void left(){
         this.setImage("left");
-        return moveLabel(-this.movementSpeed,0);
+        moveLabel(-this.movementSpeed,0);
     }
 
     /**
@@ -88,15 +89,13 @@ public abstract class Character {
      * @param y
      * @return
      */
-    private boolean moveLabel(int x, int y ){
+    private void moveLabel(int x, int y ){
         Rectangle actulRectangle = this.label.getBounds();
         actulRectangle.setLocation(actulRectangle.x + x * 2,actulRectangle.y + y * 2);
         if(!gameMap.isCharacterTouchingWall(actulRectangle)){
             this.label.setBounds(actulRectangle);
             this.position = actulRectangle;
-            return true;
         }else{
-            return false;
         }
     }
 

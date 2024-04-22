@@ -31,4 +31,24 @@ public class PlayerCharacter extends Character
     public ArrayList<Item> getItems() {
         return items;
     }
+
+    @Override
+    public void up() {
+        super.up();
+    }
+
+    @Override
+    public void down() {
+        super.down();
+    }
+
+    @Override
+    public void right() {
+        super.right();
+    }
+
+    @Override
+    public void left() {
+        super.left();
+    }
 }
