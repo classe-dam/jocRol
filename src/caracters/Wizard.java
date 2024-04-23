@@ -12,7 +12,6 @@ public class Wizard extends  PlayerCharacter {
 
     @Override
     public void handleCharacterColisionSpecialItem(EnemyBot collidedBot){
-        System.out.println("nalding character collision");
         //recovery the losen life and increase one
         this.increaseLifes(2);
     }

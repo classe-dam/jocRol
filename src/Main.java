@@ -9,7 +9,6 @@ public class Main {
 
         if (name != null && !name.isEmpty() && choosenCharacterType != -1) {
             // Start the game with the provided name and character type
-            System.out.println("name: " + name);
             new Game(name, choosenCharacterType);
         } else {
             System.out.println("No name entered or character type not chosen. Exiting...");
