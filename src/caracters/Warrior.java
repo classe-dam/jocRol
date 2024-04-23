@@ -6,7 +6,7 @@ import map.GameMap;
 
 public class Warrior extends PlayerCharacter {
     public Warrior(GameMap gameMap, String name, Game game) {
-        super(5, 3, "warrior", gameMap, name, game, ItemType.SWORD);
+        super(5, 5, "warrior", gameMap, name, game, ItemType.SWORD);
 
     }
 
