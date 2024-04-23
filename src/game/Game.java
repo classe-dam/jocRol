@@ -7,16 +7,22 @@ import map.GameMap;
 import playerkeylistener.PlayerKeyListener;
 
 import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Arrays;
 import java.util.List;
 
 public class Game {
     public static JFrame frame;
     public static boolean gameFinished;
+
+    public int secondsPassed;
     public Game(String name, int characterType){
         int rows = 25;
         int cols = 35;
         int pxPerCell = 32;
+        this.secondsPassed = 0;
+
         gameFinished = false;
         PlayerCharacter choosenCharacter;
 
@@ -48,7 +54,8 @@ public class Game {
 
         gameMap.insertEnemyBots(choosenCharacter);
         gameMap.insertItems();
-        gameMap.insertTopBar(choosenCharacter);
+        gameMap.insertTopBar(choosenCharacter, this);
+        this.startGameDurationTimeCalulation(gameMap);
 
         //add the player keylistener
         frame.addKeyListener(new PlayerKeyListener(choosenCharacter));
@@ -76,5 +83,25 @@ public class Game {
         frame.dispose();
         gameFinished = true;
         JOptionPane.showMessageDialog(null, "You have won the game", "Game won", JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    public void increaseSecond(){
+        this.secondsPassed += 1;
+    }
+
+    public int getSecondsPassed(){
+        return this.secondsPassed;
+    }
+
+    public void startGameDurationTimeCalulation(GameMap gameMap){
+        Timer timer = new Timer(1000, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                increaseSecond();
+                gameMap.getTopBar().setTranscurredTime(getSecondsPassed());
+            }
+        });
+
+        timer.start();
     }
 }

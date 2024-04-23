@@ -2,6 +2,7 @@ package map;
 
 import caracters.EnemyBot;
 import caracters.PlayerCharacter;
+import game.Game;
 import items.Item;
 import items.ItemType;
 
@@ -144,8 +145,8 @@ public class GameMap {
 
     }
 
-    public void insertTopBar(PlayerCharacter player){
-        this.topBar = new TopBar(this.frame, player.getLifes(), player.getGold());
+    public void insertTopBar(PlayerCharacter player, Game game){
+        this.topBar = new TopBar(this.frame, player.getLifes(), player.getGold(), player.getName(), game);
     }
 
     public void insertEnemyBots(PlayerCharacter choosenCharacter){

@@ -1,5 +1,6 @@
 package map;
 
+import game.Game;
 import items.Item;
 
 import javax.swing.*;
@@ -11,18 +12,24 @@ public class TopBar {
     JLabel lifes;
     JLabel gold;
     JLabel items;
+    JLabel transcurredSeconds;
 
     JPanel itemsPanel;
 
     ArrayList<Item> itemsArray;
 
     HashSet<Item> addedItems;
-    TopBar(JFrame frame, int lifes, int gold){
+    TopBar(JFrame frame, int lifes, int gold, String playerName, Game game){
         this.itemsArray = new ArrayList<>();
         this.addedItems = new HashSet<>();
         JPanel panel = new JPanel();
         panel.setBackground(Color.GRAY);
         panel.setSize(new Dimension(300,30));
+
+        //player name
+        JLabel playerNameLabel = new JLabel();
+        playerNameLabel.setText(playerName);
+        panel.add(playerNameLabel);
 
         //lifes panel
         this.lifes = new JLabel();
@@ -30,8 +37,8 @@ public class TopBar {
         this.lifes.setSize(10,30);
         JLabel imgLifesLabel = new JLabel();
         this.setImage("heart", imgLifesLabel);
-        panel.add(this.lifes);
         panel.add(imgLifesLabel);
+        panel.add(this.lifes);
 
         //gold panel
         this.gold = new JLabel();
@@ -40,8 +47,13 @@ public class TopBar {
         JLabel imgGoldLabel = new JLabel();
         imgGoldLabel.setSize(32,32);
         this.setImage("dollar",imgGoldLabel);
-        panel.add(this.gold);
         panel.add(imgGoldLabel);
+        panel.add(this.gold);
+
+        //transcurred seconds
+        transcurredSeconds = new JLabel();
+        transcurredSeconds.setText(this.convertSecondsToTime(0));
+        panel.add(transcurredSeconds);
 
         //items panel
         itemsPanel = new JPanel();
@@ -55,6 +67,15 @@ public class TopBar {
         outerPanel.add(itemsPanel, BorderLayout.EAST); // Align itemsPanel to the right
 
         frame.getContentPane().add(BorderLayout.NORTH,outerPanel);
+    }
+
+    public String convertSecondsToTime(int totalSeconds) {
+        int minutes = totalSeconds / 60;
+        int seconds = totalSeconds % 60;
+
+        // Format the time as "minutes:seconds"
+        String formattedTime = String.format("%d:%02d", minutes, seconds);
+        return formattedTime;
     }
 
 
@@ -112,5 +133,9 @@ public class TopBar {
 
     public void setGold(String gold){
         this.gold.setText(gold);
+    }
+
+    public void setTranscurredTime(int seconds){
+        transcurredSeconds.setText(convertSecondsToTime(seconds));
     }
 }
