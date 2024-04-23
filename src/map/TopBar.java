@@ -5,6 +5,7 @@ import items.Item;
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.HashSet;
 
 public class TopBar {
     JLabel lifes;
@@ -14,8 +15,11 @@ public class TopBar {
     JPanel itemsPanel;
 
     ArrayList<Item> itemsArray;
+
+    HashSet<Item> addedItems;
     TopBar(JFrame frame, int lifes, int gold){
         this.itemsArray = new ArrayList<>();
+        this.addedItems = new HashSet<>();
         JPanel panel = new JPanel();
         panel.setBackground(Color.GRAY);
         panel.setSize(new Dimension(300,30));
@@ -56,13 +60,19 @@ public class TopBar {
 
 
     public void addItem(Item item){
-        this.itemsArray.add(item);
-        this.renderItems();
+        if(!this.addedItems.contains(item)){
+            this.itemsArray.add(item);
+            this.addedItems.add(item);
+            this.renderItems();
+        }
     }
 
     public void removeItem(Item item){
-        this.itemsArray.remove(item);
-        this.renderItems();
+        if(this.addedItems.contains(item)) {
+            this.itemsArray.remove(item);
+            this.renderItems();
+            this.addedItems.remove(item);
+        }
     }
 
     private void renderItems(){

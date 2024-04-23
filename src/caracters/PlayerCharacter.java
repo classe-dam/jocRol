@@ -2,21 +2,25 @@ package caracters;
 
 import game.Game;
 import items.Item;
+import items.ItemType;
 import map.GameMap;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Iterator;
 
-public class PlayerCharacter extends Character
+public abstract class PlayerCharacter extends Character
 {
     protected String name;
     protected int gold;
     protected ArrayList<Item> items;
     protected long lastTimeCollidedEnemy;
 
-    public PlayerCharacter(int lifes, int movementSpeed, String imageName, GameMap gameMap, String name, Game game) {
+    private ItemType specialItem;
+    public PlayerCharacter(int lifes, int movementSpeed, String imageName, GameMap gameMap, String name, Game game, ItemType specialItem) {
         //update size
         super(lifes, movementSpeed, imageName, gameMap, gameMap.getStartingPosition(), 22, game);
+        this.specialItem = specialItem;
         this.gold = 0;
         this.lastTimeCollidedEnemy = 0;
         this.items = new ArrayList<>();
@@ -25,11 +29,21 @@ public class PlayerCharacter extends Character
 
     public void addItem(Item item){
         items.add(item);
-        //render item at the topbar
 
+        //render item at the topbar
         this.gameMap.getTopBar().addItem(item);
     }
 
+    public void removeItem(ItemType removingItem){
+        Iterator<Item> itemsIterator = this.items.iterator();
+        while (itemsIterator.hasNext()){
+            Item item = itemsIterator.next();
+            if(item.getItem() == removingItem){
+                items.remove(item);
+                this.gameMap.getTopBar().removeItem(item);
+            }
+        }
+    }
     public String getName() {
         return name;
     }
@@ -74,7 +88,7 @@ public class PlayerCharacter extends Character
         checkGameWon();
     }
 
-    public void handleEnemyColision(){
+    public void handleEnemyColision(EnemyBot collidedBot){
         long currentTime = System.currentTimeMillis();
 
         // Check if at least half a second has passed since the last collision
@@ -86,7 +100,15 @@ public class PlayerCharacter extends Character
         }
 
         super.setPosition(this.gameMap.getStartingPosition());
+        //special habilities
+        if(this.characterContainsItem(this.specialItem)){
+            handleCharacterColisionSpecialItem(collidedBot);
+            this.removeItem(this.specialItem);
+        }
     }
+
+    //to be overriden
+    public abstract void handleCharacterColisionSpecialItem(EnemyBot enemyBot);
     private void checkPositionForObstaclesOrEnemies(){
         Item intersectedItem = this.gameMap.positionColliseWithItem(this.getPosition());
         //only object
@@ -104,10 +126,20 @@ public class PlayerCharacter extends Character
         }
 
 
+
     }
     private void checkGameWon(){
         if(this.gameMap.positionIsAtExist(this.getPosition()) && this.gold >= 50){
             this.getGame().winGame();
         }
+    }
+
+    protected boolean characterContainsItem(ItemType itemType){
+        for(Item item : items){
+            if(item.getItem() == itemType){
+                return true;
+            }
+        }
+        return false;
     }
 }

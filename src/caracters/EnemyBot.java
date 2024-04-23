@@ -89,7 +89,7 @@ public class EnemyBot extends Character {
         }
 
         if(intersectsChasingCharacter()){
-            this.pursuedCharacter.handleEnemyColision();
+            this.pursuedCharacter.handleEnemyColision(this);
         }
     }
 

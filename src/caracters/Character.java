@@ -122,6 +122,11 @@ public abstract class Character {
         };
     }
 
+    public void increaseLifes(int value){
+        this.lifes += value;
+        this.gameMap.getTopBar().setLifes(String.valueOf(this.lifes));
+    }
+
     public JLabel getLabel() {
         return label;
     }
