@@ -12,15 +12,15 @@ import java.awt.*;
  * ./src/images/{imagename} with name {imagename}-up.gif, {imagename}-down.gif, {imagename}-left.gif, {imagename}-right.gif
  */
 public abstract class Character {
-    private int lifes;
-    private int movementSpeed;
+    protected int lifes;
+    protected int movementSpeed;
 
-    private JLabel label;
-    private int sizePx;
-    private String imageName;
-    private GameMap gameMap;
-    private Game game;
-    private Rectangle position;
+    protected JLabel label;
+    protected int sizePx;
+    protected String imageName;
+    protected GameMap gameMap;
+    protected Game game;
+    protected Rectangle position;
 
     public Rectangle getPosition(){
         return label.getBounds();
@@ -28,10 +28,6 @@ public abstract class Character {
 
     public void setPosition(Rectangle r){
         this.label.setBounds(r);
-    }
-
-    public GameMap getGameMap() {
-        return gameMap;
     }
 
     public Character(int lifes, int movementSpeed, String imageName, GameMap gameMap, Rectangle startingPosition, int sizePx, Game game) {

@@ -7,17 +7,24 @@ import java.awt.*;
 import java.util.Random;
 
 public class Item {
-    ItemType item;
-    JLabel label;
-    String imageName;
-    GameMap gameMap;
+    private ItemType item;
+    private JLabel label;
+    private String imageName;
+    private GameMap gameMap;
 
     public Item(ItemType item, GameMap gameMap) {
         this.gameMap = gameMap;
         this.item = item;
         this.imageName = item.getName();
-        System.out.println("imageName" + this.imageName);
         this.initLabel();
+    }
+
+    public JLabel getLabel() {
+        return label;
+    }
+
+    public String getImageName() {
+        return imageName;
     }
 
     private void initLabel(){
@@ -25,7 +32,6 @@ public class Item {
         this.setImage(this.item.getName(),this.label);
         this.changeToRandomPosition();
         gameMap.getFrame().getContentPane().add(label);
-        System.out.println("item inserted at bounds" + label.getBounds());
     }
 
     private void setImage(String imageName, JLabel label){

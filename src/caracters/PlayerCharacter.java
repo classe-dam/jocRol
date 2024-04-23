@@ -9,10 +9,10 @@ import java.util.ArrayList;
 
 public class PlayerCharacter extends Character
 {
-    private String name;
-    private int gold;
-    private ArrayList<Item> items;
-    private long lastTimeCollidedEnemy;
+    protected String name;
+    protected int gold;
+    protected ArrayList<Item> items;
+    protected long lastTimeCollidedEnemy;
 
     public PlayerCharacter(int lifes, int movementSpeed, String imageName, GameMap gameMap, String name, Game game) {
         //update size
@@ -27,6 +27,7 @@ public class PlayerCharacter extends Character
         items.add(item);
         //render item at the topbar
 
+        this.gameMap.getTopBar().addItem(item);
     }
 
     public String getName() {
@@ -35,7 +36,7 @@ public class PlayerCharacter extends Character
 
     public void increaseGold(){
         this.gold += 10;
-        this.getGameMap().getTopBar().setGold(String.valueOf(this.gold));
+        this.gameMap.getTopBar().setGold(String.valueOf(this.gold));
     }
     public int getGold() {
         return gold;
@@ -84,10 +85,10 @@ public class PlayerCharacter extends Character
             lastTimeCollidedEnemy = currentTime;
         }
 
-        super.setPosition(getGameMap().getStartingPosition());
+        super.setPosition(this.gameMap.getStartingPosition());
     }
     private void checkPositionForObstaclesOrEnemies(){
-        Item intersectedItem = this.getGameMap().positionColliseWithItem(this.getPosition());
+        Item intersectedItem = this.gameMap.positionColliseWithItem(this.getPosition());
         //only object
         if(intersectedItem != null){
             switch (intersectedItem.getItem()){
@@ -105,7 +106,7 @@ public class PlayerCharacter extends Character
 
     }
     private void checkGameWon(){
-        if(getGameMap().positionIsAtExist(this.getPosition()) && this.gold >= 50){
+        if(this.gameMap.positionIsAtExist(this.getPosition()) && this.gold >= 50){
             this.getGame().winGame();
         }
     }

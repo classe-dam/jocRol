@@ -1,13 +1,21 @@
 package map;
 
+import items.Item;
+
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
 
 public class TopBar {
     JLabel lifes;
     JLabel gold;
     JLabel items;
+
+    JPanel itemsPanel;
+
+    ArrayList<Item> itemsArray;
     TopBar(JFrame frame, int lifes, int gold){
+        this.itemsArray = new ArrayList<>();
         JPanel panel = new JPanel();
         panel.setBackground(Color.GRAY);
         panel.setSize(new Dimension(300,30));
@@ -21,7 +29,7 @@ public class TopBar {
         panel.add(this.lifes);
         panel.add(imgLifesLabel);
 
-//        gold panel
+        //gold panel
         this.gold = new JLabel();
         this.gold.setText(String.valueOf(gold));
         this.gold.setSize(10,30);
@@ -31,16 +39,48 @@ public class TopBar {
         panel.add(this.gold);
         panel.add(imgGoldLabel);
 
-        frame.getContentPane().add(BorderLayout.NORTH,panel);
+        //items panel
+        itemsPanel = new JPanel();
+        itemsPanel.setBackground(Color.GRAY);
+        itemsPanel.setSize(100,30);
+        this.renderItems();
 
-        // Get the components in the panel
-        Component[] components = panel.getComponents();
-        for (Component component : components) {
-            if (component instanceof JLabel) {
-                JLabel label = (JLabel) component;
-                System.out.println("Label Text: " + label.getText());
-            }
+        JPanel outerPanel = new JPanel(new BorderLayout());
+        outerPanel.setSize(300,30);
+        outerPanel.add(panel, BorderLayout.CENTER); // Align panel to the left
+        outerPanel.add(itemsPanel, BorderLayout.EAST); // Align itemsPanel to the right
+
+        frame.getContentPane().add(BorderLayout.NORTH,outerPanel);
+    }
+
+
+
+    public void addItem(Item item){
+        this.itemsArray.add(item);
+        this.renderItems();
+    }
+
+    public void removeItem(Item item){
+        this.itemsArray.remove(item);
+        this.renderItems();
+    }
+
+    private void renderItems(){
+        // Clear the itemsPanel
+        this.itemsPanel.removeAll();
+
+        // Iterate through itemsArray and add new items to itemsPanel
+        for (Item item: this.itemsArray) {
+            JLabel imgLabel = new JLabel();
+            imgLabel.setSize(32, 32);
+            this.setImage(item.getImageName(), imgLabel);
+            this.itemsPanel.add(imgLabel);
         }
+
+        // After adding all items, revalidate and repaint the itemsPanel
+        this.itemsPanel.revalidate();
+        this.itemsPanel.repaint();
+
     }
 
     private void setImage(String imageName, JLabel label){
