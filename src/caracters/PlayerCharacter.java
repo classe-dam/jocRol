@@ -19,12 +19,19 @@ public abstract class PlayerCharacter extends Character
     private ItemType specialItem;
     public PlayerCharacter(int lifes, int movementSpeed, String imageName, GameMap gameMap, String name, Game game, ItemType specialItem) {
         //update size
-        super(lifes, movementSpeed, imageName, gameMap, gameMap.getStartingPosition(), 22, game);
+        super(lifes, movementSpeed, imageName, gameMap, gameMap.getStartingPosition(), 64, game);
         this.specialItem = specialItem;
         this.gold = 0;
         this.lastTimeCollidedEnemy = 0;
         this.items = new ArrayList<>();
         this.name = name;
+        //temporal bug fix
+        this.down();
+        this.left();
+        this.up();
+        this.up();
+        this.right();
+        this.down();
     }
 
     public void addItem(Item item){
@@ -99,7 +106,8 @@ public abstract class PlayerCharacter extends Character
             lastTimeCollidedEnemy = currentTime;
         }
 
-        super.setPosition(this.gameMap.getStartingPosition());
+        Rectangle r = this.gameMap.getStartingPosition();
+        super.setLocation(new Point(r.x, r.y));
         //special habilities
         if(this.characterContainsItem(this.specialItem)){
             handleCharacterColisionSpecialItem(collidedBot);

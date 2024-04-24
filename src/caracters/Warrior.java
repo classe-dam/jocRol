@@ -14,5 +14,6 @@ public class Warrior extends PlayerCharacter {
     public void handleCharacterColisionSpecialItem(EnemyBot collidedBot){
         //destroy enemy
         collidedBot.hide();
+        this.label.repaint();
     }
 }
