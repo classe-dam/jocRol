@@ -2,6 +2,7 @@ package game;
 
 import caracters.EnemyBot;
 import caracters.*;
+import database.DBConnection;
 import items.ItemType;
 import map.GameMap;
 import playerkeylistener.PlayerKeyListener;
@@ -17,14 +18,17 @@ public class Game {
     public static boolean gameFinished;
 
     public int secondsPassed;
+    GameMap gameMap;
+    PlayerCharacter choosenCharacter;
+    String playerName;
     public Game(String name, int characterType){
+
         int rows = 25;
         int cols = 35;
         int pxPerCell = 32;
         this.secondsPassed = 0;
-
+        this.playerName = name;
         gameFinished = false;
-        PlayerCharacter choosenCharacter;
 
         //create the framedsd
         JFrame frame = new JFrame("My Swing Frame");
@@ -34,7 +38,7 @@ public class Game {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         //init gameMap
-        GameMap gameMap = new GameMap(frame, rows, cols, pxPerCell);
+        this.gameMap = new GameMap(frame, rows, cols, pxPerCell);
 
         //initialize the chosen character
         switch (characterType){
@@ -73,6 +77,9 @@ public class Game {
         }
         frame.dispose();
         gameFinished = true;
+        DBConnection dbOps = new DBConnection();
+        // Insert data
+        dbOps.insertData(this.playerName, this.choosenCharacter.getGold(), this.choosenCharacter.getLifes(), false, this.secondsPassed);
         JOptionPane.showMessageDialog(null, "Game Over", "Game Over", JOptionPane.INFORMATION_MESSAGE);
     }
 
@@ -82,6 +89,8 @@ public class Game {
         }
         frame.dispose();
         gameFinished = true;
+        DBConnection dbOps = new DBConnection();
+        dbOps.insertData(this.playerName, this.choosenCharacter.getGold(), this.choosenCharacter.getLifes(), true, this.secondsPassed);
         JOptionPane.showMessageDialog(null, "You have won the game", "Game won", JOptionPane.INFORMATION_MESSAGE);
     }
 

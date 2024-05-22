@@ -1,9 +1,20 @@
+import database.DBConnection;
 import game.Game;
 import utils.Utils;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 public class Main {
     public static void main(String[] args) {
+        DBConnection dbOps = new DBConnection();
 
+        ArrayList<String> rankingElements =  dbOps.selectData();
+        if(rankingElements!= null){
+            Utils.showRanking(rankingElements);
+        }
         String name = Utils.getName();
         int choosenCharacterType = Utils.chooseCharacterType();
 
@@ -15,6 +26,8 @@ public class Main {
         }
 
     }
+
+
 
     // test initialization of game
 //    public static void main(String[] args) {
